@@ -1,0 +1,96 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-brand: #f59e0b; /* Amber 500 */
+}
+
+@layer base {
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scrollbar-gutter: stable;
+  }
+  
+  /* Global Dark Mode Fixes using standard CSS to avoid Tailwind v4 apply issues with !important */
+  .dark .bg-white { background-color: #18181b !important; }
+  .dark .bg-gray-50, .dark .bg-gray-100 { background-color: #27272a !important; }
+  .dark .border-gray-100, .dark .border-gray-200 { border-color: #262626 !important; }
+  .dark .text-gray-900 { color: white !important; }
+  .dark .text-gray-800 { color: #f3f4f6 !important; }
+  .dark .text-gray-700, .dark .text-gray-600, .dark .text-gray-500 { color: #9ca3af !important; }
+  
+  /* Table specific dark mode */
+  .dark thead, .dark thead tr { background-color: #1f1f23 !important; color: #e5e7eb !important; }
+  .dark thead th { color: #f3f4f6 !important; }
+  .dark tbody tr { border-color: #262626 !important; }
+  .dark tbody tr:hover, .dark tr:hover { background-color: #1f1f23 !important; }
+  .dark td { color: #d1d5db !important; }
+  
+  /* Input/Select dark mode */
+  .dark input, .dark select, .dark textarea {
+    background-color: #1f1f23 !important;
+    border-color: #262626 !important;
+    color: white !important;
+  }
+  .dark input::placeholder, .dark textarea::placeholder {
+    color: #6b7280 !important;
+  }
+}
+
+/* Global Scrollbar Theme - OUTSIDE OF ANY LAYER FOR MAX PRIORITY */
+:root {
+  --sb-track: #fafafa;
+  --sb-thumb: #d1d5db;
+}
+.dark {
+  --sb-track: #0a0a0a;
+  --sb-thumb: #3f3f46;
+}
+
+/* Apply to ALL scrollbars including root and nested */
+::-webkit-scrollbar {
+  width: 10px !important;
+  height: 10px !important;
+}
+::-webkit-scrollbar-track {
+  background: var(--sb-track) !important;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--sb-thumb) !important;
+  border-radius: 10px !important;
+  border: 3px solid var(--sb-track) !important;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #52525b !important;
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin !important;
+  scrollbar-color: var(--sb-thumb) var(--sb-track) !important;
+}
+
+/* Specific class overrides just in case */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px !important;
+  height: 6px !important;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: var(--sb-track) !important;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--sb-thumb) !important;
+  border-radius: 10px !important;
+  border: 2px solid var(--sb-track) !important;
+}
+
+/* Dashboard specific scrollbar fix if the above fails */
+.dark .custom-scrollbar::-webkit-scrollbar-track {
+  background: #0a0a0a !important;
+}
+.dark .custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #3f3f46 !important;
+  border: 2px solid #0a0a0a !important;
+}
